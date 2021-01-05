@@ -1,17 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      #cover {
+        left: 0;
+        right: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .bottom {
+        bottom: 66px;
+        position: absolute;
+        width: 100%;
+      }
+      .bottom .progress {
+        z-index: 999;
+        opacity: 1;
+        pointer-events: none;
+        text-align: center;
+        color: #666;
+        font-size: 3.73333vw;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .bottom.loaded .progress {
+        opacity: 0;
+        transition: opacity 1s ease 1s;
+      }
+
+      .bottom .detail-btn {
+        border: none;
+        border-radius: 12vw;
+        font-size: 4.26666vw;
+        line-height: 12vw;
+        width: 76.8vw;
+        background-color: #373737;
+        color: #fff;
+      }
+      .bottom .btn-wrapper {
+        position: relative;
+        z-index: 999;
+        text-align: center;
+        outline: none;
+        opacity: 0;
+      }
+      .bottom.loaded .btn-wrapper {
+        animation: fadeIn 1s 2s ease both;
+      }
+      .bottom.loaded .btn-wrapper .detail-btn:active {
+        opacity: 0.8;
+      }
+
+      .start #cover {
+        opacity: 0;
+        transition: opacity 1s ease 0.2s;
+        pointer-events: none;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+    <div id="app">
+      <section id="cover">
+        <div class="content screen-enter">
+
+        </div>
+
+        <div class="bottom" id="bottom">
+          <div class="progress" id="progress">
+            <span class="percent">0%</span>
+            <span class="dotting"></span>
+          </div>
+          <div class="btn-wrapper">
+            <button class="detail-btn" id="more" type="button">查看详情</button>
+          </div>
+        </div>
+      </section>
+      <section id="container" class="test"></section>
+    </div>
+    <script>
+      document.querySelector('#container').style.height = window.innerHeight + 'px'
+      function hasClass(element, cName) {
+        //检查class是否存在
+        return !!element.className.match(new RegExp('(\\s|^)' + cName + '(\\s|$)'))
+      }
+      function addClass(element, cName) {
+        //添加一个class
+        if (!hasClass(element, cName)) {
+          if (!element.className) {
+            element.className = cName
+          } else {
+            element.className += ' ' + cName
+          }
+        }
+      }
+      function removeClass(element, cName) {
+        //移除一个class
+        if (hasClass(element, cName)) {
+          element.className = element.className.replace(new RegExp('(\\s|^)' + cName + '(\\s|$)'), ' ')
+        }
+      }
+      var fakeProgress = 0
+      var timer = null
+      function updateProgress() {
+        timer = setInterval(() => {
+          if (typeof setCarType === 'function') {
+            window.setCarType('A')
+          }
+          var progress = typeof getProgress === 'function' ? getProgress() : 0
+          // console.log(progress)
+          // 如果实际资源没加载完就卡在95%
+          if (progress === 100 || fakeProgress < 95) {
+            fakeProgress++
+          }
+          if (fakeProgress === 100 && typeof completeProgress === 'function') {
+            clearInterval(timer)
+            completeProgress()
+            window.addClass(document.querySelector('#bottom'), 'loaded')
+          }
+          document.querySelector('#progress .percent').innerHTML = fakeProgress + '%'
+        }, 50)
+      }
+      updateProgress()
+      document.querySelector('#more').addEventListener('touchend', function() {
+        if (fakeProgress === 100) {
+          window.addClass(document.querySelector('#app'), 'start')
+          window.showScreens()
+        }
+      })
+    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>
