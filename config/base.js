@@ -17,7 +17,7 @@ module.exports = {
     loaderOptions: {
       sass: {
         // 设置公共样式变量
-        prependData: `@import "@/assets/styles/variables.scss";`
+        prependData: '@import "@/assets/styles/variables.scss";'
       }
     },
     // 设置打包的样式是否内联（false 为内联）
