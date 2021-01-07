@@ -45,7 +45,7 @@ export default defineComponent({
     })
     // 控制页面
     const screens = computed(() => {
-      let pages = ['screen1', 'screen2', 'screen3', 'screen4', 'screen5', 'screen6', 'screen7', 'screen8', 'screen9', 'screen10', 'share']
+      let pages = ['screen1', 'screen2']
       const remove = function(name, array) {
         for (let i = 0; i < array.length; i++) {
           if (array[i] === name) {
@@ -122,7 +122,8 @@ export default defineComponent({
       this.$store.commit('setResourcesLoaded', true)
     },
     getProgress() {
-      return this.progress
+      // return this.progress
+      return 100
     },
     completeProgress() {
       //
