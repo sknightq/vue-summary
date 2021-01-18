@@ -3,10 +3,26 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/prettier'],
+  extends: [
+    "plugin:vue/vue3-essential",
+    "eslint:recommended",
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint"
+  ],
   parserOptions: {
-    parser: 'babel-eslint'
-  },
+    ecmaVersion: 2020
+  },  overrides: [
+    {
+      files: [
+        "**/__tests__/*.{j,t}s?(x)",
+        "**/tests/unit/**/*.spec.{j,t}s?(x)"
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ],
   rules: {
     // 与prettier插件冲突的设置
     'prettier/prettier': [2, { singleQuote: true, semi: false, printWidth: 200 }],

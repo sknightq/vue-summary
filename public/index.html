@@ -70,13 +70,14 @@
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please
+        enable it to continue.</strong
+      >
     </noscript>
     <div id="app">
       <section id="cover">
-        <div class="content screen-enter">
-
-        </div>
+        <div class="content screen-enter"></div>
 
         <div class="bottom" id="bottom">
           <div class="progress" id="progress">
@@ -88,7 +89,7 @@
           </div>
         </div>
       </section>
-      <section id="container" class="test"></section>
+      <section id="container"></section>
     </div>
     <script>
       document.querySelector('#container').style.height = window.innerHeight + 'px'
@@ -102,7 +103,7 @@
           if (!element.className) {
             element.className = cName
           } else {
-            element.className += ' ' + cName
+            element.className = element.className.trime() + ' ' + cName
           }
         }
       }
@@ -116,9 +117,6 @@
       var timer = null
       function updateProgress() {
         timer = setInterval(() => {
-          if (typeof setCarType === 'function') {
-            window.setCarType('A')
-          }
           var progress = typeof getProgress === 'function' ? getProgress() : 0
           // console.log(progress)
           // 如果实际资源没加载完就卡在95%

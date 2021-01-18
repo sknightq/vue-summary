@@ -24,7 +24,7 @@
 </template>
 <script>
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 import Swiper from 'tiny-swiper'
 import Screen from '@/components/Screen.vue'
@@ -34,15 +34,6 @@ export default defineComponent({
     Screen
   },
   setup() {
-    const store = useStore()
-    store.dispatch('getData').then(resp => {
-      const temp = {}
-      for (const key in resp) {
-        const newKey = toHump(key)
-        temp[newKey] = resp[key]
-      }
-      store.commit('setData', temp)
-    })
     // 控制页面
     const screens = computed(() => {
       let pages = ['screen1', 'screen2']
@@ -56,7 +47,7 @@ export default defineComponent({
         return array
       }
       // 控制页面显示
-      // pages = remove('screen3', pages)
+      pages = remove('screen3', pages)
 
       return pages
     })
@@ -95,7 +86,7 @@ export default defineComponent({
       progress,
       resources,
       musicPlaying,
-      isInApp: isInApp('ge')
+      isInApp: isInApp()
     }
   },
   methods: {
@@ -110,23 +101,24 @@ export default defineComponent({
       this.musicPlaying = !this.musicPlaying
     },
     showScreens() {
+      //
+    },
+    getProgress() {
+      // return this.progress
+      console.log(1000000)
+      return 100
+    },
+    completeProgress() {
       // 开始初始化swiper, 如果放在onMounted里会错过第一swiper的动画
       const swiper = new Swiper(document.querySelector('#swiper-container'), {
         direction: 'vertical',
         slideActiveClass: 'screen-enter'
       })
-      swiper.on('scroll', activeIndex => {
-        this.screenActiveIdx = activeIndex
+      swiper.on('scroll', swiper => {
+        this.screenActiveIdx = swiper.index
       })
       // 用于后续页面渲染判断，Leaflet开始渲染会依赖这个条件
       this.$store.commit('setResourcesLoaded', true)
-    },
-    getProgress() {
-      // return this.progress
-      return 100
-    },
-    completeProgress() {
-      //
     }
   }
 })

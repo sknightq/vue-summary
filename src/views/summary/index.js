@@ -6,8 +6,9 @@ import '@/assets/styles/animate.scss'
 var instance = createApp(App)
   .use(store)
   .mount('#container')
-window.getProgress = function(...args) {
-  return App.methods.getProgress.apply(instance, args)
+
+window.getProgress = function() {
+  return App.methods.getProgress.apply(instance)
 }
 window.completeProgress = function() {
   App.methods.completeProgress.apply(instance)
