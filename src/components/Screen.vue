@@ -14,7 +14,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const componentName = computed(() => props.screen.substring(0, 1).toUpperCase() + props.screen.substring(1))
+    const componentName = computed(() => props.screen.substring(0, 1).toLowerCase() + props.screen.substring(1))
     const componentId = computed(() => defineAsyncComponent(() => import(`@/views/screens/${componentName.value}.vue`)))
     const h = ref(600)
     const screenStyle = computed(() => {

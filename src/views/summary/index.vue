@@ -118,7 +118,7 @@ export default defineComponent({
         this.screenActiveIdx = swiper.index
       })
       // 用于后续页面渲染判断，Leaflet开始渲染会依赖这个条件
-      this.$store.commit('setResourcesLoaded', true)
+      this.$store.commit('setLoaded', true)
     }
   }
 })

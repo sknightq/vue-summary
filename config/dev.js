@@ -21,12 +21,6 @@ const devConfig = merge(baseConfig, {
               return 'dayjs'
             }
           },
-          amap: {
-            test: /[\\/]node_modules[\\/]@amap[\\/]/,
-            name() {
-              return 'amap'
-            }
-          },
           qrcode: {
             test: /[\\/]node_modules[\\/]qrcode-module[\\/]/,
             name() {
@@ -39,18 +33,18 @@ const devConfig = merge(baseConfig, {
           //     return 'html2canvas'
           //   }
           // },
-          swiper: {
-            test: /[\\/]node_modules[\\/]tiny-swiper[\\/]/,
-            name() {
-              return 'tiny-swiper'
-            }
-          },
-          vue: {
-            test: /[\\/]node_modules[\\/]@vue[\\/]/,
-            name() {
-              return 'vue'
-            }
-          }
+          // swiper: {
+          //   test: /[\\/]node_modules[\\/]tiny-swiper[\\/]/,
+          //   name() {
+          //     return 'tiny-swiper'
+          //   }
+          // },
+          // vue: {
+          //   test: /[\\/]node_modules[\\/]@vue[\\/]/,
+          //   name() {
+          //     return 'vue'
+          //   }
+          // }
         }
       }
     }

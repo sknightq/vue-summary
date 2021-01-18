@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './index.vue'
-import store from '@/store/index.js'
+import store from '@/store/index.ts'
 import '@/assets/styles/base.scss'
 import '@/assets/styles/animate.scss'
 var instance = createApp(App)
